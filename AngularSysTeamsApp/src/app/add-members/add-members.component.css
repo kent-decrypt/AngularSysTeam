@@ -1,0 +1,11 @@
+/* Start Override Default Styling */
+
+/* End Override Default Styling */
+
+.form-control {
+    width : 150px;
+    border-radius: 2px;
+    height : 25px;
+
+    margin: 5px;
+}
