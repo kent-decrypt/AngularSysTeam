@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Teams } from '../../data/teams';
-import { Members, getNewId } from '../../data/members';
+import { Members, getNewId, defaultActions } from '../../data/members';
 import { Member } from '../../models/member';
 import { Team } from '../../models/team';
 
@@ -11,7 +11,6 @@ import { Team } from '../../models/team';
 })
 export class AddMembersComponent implements OnInit {
   @ViewChild('memberName') memberName : any;
-  @ViewChild('teams') teams : any;
 
   canAdd : boolean = false;
   _memberName : string = '';
@@ -36,11 +35,11 @@ export class AddMembersComponent implements OnInit {
           const member : Member = {
               id : getNewId(),
               name : this._memberName,
-              team : new Team(+this._memberTeam)
+              team : new Team(+this._memberTeam),
+              ...defaultActions              
           };
           Members.push(member);
           memberName.value = '';
-          teams.options.selectedIndex = 0;
           console.log(`Added ${this._memberName} with team ${this._memberTeam}!`);
       }
       catch(e) {

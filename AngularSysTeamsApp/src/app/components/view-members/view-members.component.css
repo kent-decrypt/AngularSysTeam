@@ -4,3 +4,7 @@ ul {
 }
 
 /* End Override default styling */
+
+.modal {
+    background: rgba(0,0,0,0.6);
+}

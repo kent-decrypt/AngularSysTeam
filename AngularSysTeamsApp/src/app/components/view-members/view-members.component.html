@@ -1,22 +1,41 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Team</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="w-25">ID</th>
+            <th scope="col" class="w-25">Name</th>
+            <th scope="col" class="w-25">Team</th>
+            <th scope="col" class="w-25">Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let member of _members">
             <th scope="row">{{ member.id }}</th>
-            <td>{{ member.name }}</td>
-            <td>{{ member.team.name }}</td>
             <td>
-                <button class="btn btn-primary mx-1">Edit</button>
-                <button class="btn btn-danger mx-1">Delete</button>
+                {{ !member.isUpdate ? member.name : '' }}
+                <input class="form-control" type="text" value="{{ member.name }}" *ngIf="member.isUpdate" (keyup)="editMember($event, member.id)" />
+            </td>
+            <td>
+                {{ !member.isUpdate ? member.team.name : '' }}
+                <select *ngIf="member.isUpdate" class="form-control" (change)="changeTeam($event, member.id)" id="teams">
+                    <option value="0">Select Team...</option>
+                    <option *ngFor="let team of _teams" value="{{ team.id | number }}" [selected]="team.id == member.team.id">
+                        {{ team.name }}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <button *ngIf="!member.isUpdate && !member.isDelete" class="btn btn-primary mx-1" (click)="toggleUpdate(member.id)">Edit</button>
+                <button *ngIf="member.isUpdate && !member.isDelete" class="btn btn-success mx-1" (click)="saveUpdate(member.id)">Save</button>
+                <button *ngIf="member.isUpdate && !member.isDelete" class="btn btn-danger mx-1" (click)="toggleUpdate(member.id)">Cancel</button>
+
+                <button *ngIf="!member.isUpdate && !member.isDelete" class="btn btn-danger mx-1" (click)="toggleDelete(member.id)">Delete</button>
+                <div *ngIf="member.isDelete && !member.isUpdate">
+                    Are you sure to delete?
+                    <br>
+                    <button *ngIf="!member.isUpdate" class="btn btn-danger mx-1" (click)="removeMember(member.id)">Yes</button>
+                    <button *ngIf="!member.isUpdate" class="btn btn-secondary mx-1" (click)="toggleDelete(member.id)">No</button>
+                </div>
             </td>
         </tr>
     </tbody>
-
 </table>
