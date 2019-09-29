@@ -1,13 +1,26 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-    <h1>Welcome to {{ title }}!</h1>
+    <div class="container-fluid py-4 bg-dark">
+        
+        <div class="row mx-2">
+            <h3 class="text-left text-light">
+                CampaignTrack
+                <small class="text-muted">R&D Employees List</small>
+            </h3>
+        </div>
+
+    </div>
+
+    <div class="row my-2">
+        <div class="col"></div>
+        <div class="col ml-3">
+            <app-add-members></app-add-members>
+        </div>
+        <div class="col"></div>
+    </div>
 
     <div id="membersContainer">
         <app-view-members></app-view-members>
-    </div>
-
-    <div id="registerContainer">
-        <app-add-members></app-add-members>
     </div>
   
 </div>

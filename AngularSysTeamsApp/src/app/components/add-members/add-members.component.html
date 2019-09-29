@@ -1,0 +1,25 @@
+<div class="container">
+
+    <div class="row">
+        <form class="form-inline">
+            
+            <div class="form-group mx-1">
+                <input class="form-control" type="text" id="memberName" placeholder="Name" (keyup)="editMemberName($event)"/>
+            </div>
+
+            <div class="form-group mx-1">
+                <select class="form-control" (change)="changeTeam($event)" id="teams">
+                    <option value="0">Select Team...</option>
+                    <option *ngFor="let team of _teams" value="{{ team.id | number }}">{{ team.name }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group mx-1">
+                <button class="btn btn-success" type="button" (click)="addMember()" >
+                    Quick Add Member
+                </button>
+            </div>
+        </form>
+    </div>
+  
+</div>

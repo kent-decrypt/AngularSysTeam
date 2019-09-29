@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Teams } from '../teams';
-import { Members, getNewId } from '../members';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Teams } from '../../data/teams';
+import { Members, getNewId } from '../../data/members';
 import { Member } from '../../models/member';
+import { Team } from '../../models/team';
 
 @Component({
   selector: 'app-add-members',
@@ -9,16 +10,17 @@ import { Member } from '../../models/member';
   styleUrls: ['./add-members.component.css']
 })
 export class AddMembersComponent implements OnInit {
+  @ViewChild('memberName') memberName : any;
+  @ViewChild('teams') teams : any;
 
-  canAdd = false;
-  _memberName = '';
-  _memberTeam = null;
-  _teams = Teams;
+  canAdd : boolean = false;
+  _memberName : string = '';
+  _memberTeam : number = null;
+  _teams : any = Teams;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   toggleFlag() {
       this.canAdd = !this.canAdd;
@@ -34,9 +36,11 @@ export class AddMembersComponent implements OnInit {
           const member : Member = {
               id : getNewId(),
               name : this._memberName,
-              team : this._memberTeam
+              team : new Team(+this._memberTeam)
           };
           Members.push(member);
+          memberName.value = '';
+          teams.options.selectedIndex = 0;
           console.log(`Added ${this._memberName} with team ${this._memberTeam}!`);
       }
       catch(e) {
