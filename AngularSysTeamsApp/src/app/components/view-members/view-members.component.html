@@ -17,7 +17,6 @@
             <td>
                 {{ !member.isUpdate ? member.team.name : '' }}
                 <select *ngIf="member.isUpdate" class="form-control" (change)="changeTeam($event, member.id)" id="teams">
-                    <option value="0">Select Team...</option>
                     <option *ngFor="let team of _teams" value="{{ team.id | number }}" [selected]="team.id == member.team.id">
                         {{ team.name }}
                     </option>
